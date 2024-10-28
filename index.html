@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Using OpenLayers with Vite</title>
+  </head>
+  <body>
+    <div id="map" style="z-index: 1;"></div>
+    <li class="sidebar_items" style="z-index: 100; position: absolute; top: 30px; left: 30px;">
+      <span class="material-symbols-outlined">filter_alt</span>
+      <ul id="querybuilder_tool" class="side_menu_popup boundary_tool querybuilder_tool_poppup">
+        <div class="popup-header">Query Builder</div>
+        <div>
+          <div>
+            <label for="file">Select file:</label>
+            <select id="file" name="file"></select>
+          </div>
+        </div>
+        <form id="queryfilterForm">
+          <div>
+            <select id="field" name="value" multiple></select>
+          </div>
+          <div style="min-width: 150px;" id="query-operator">
+            <div>
+              <div>
+                <button type="button"> = </button>
+                <button type="button"> > </button>
+                <button type="button"> lt </button>
+              </div>
+              <div>
+                <button type="button"> >= </button>
+                <button type="button"> gt= </button>
+                <button type="button"> OR </button>
+              </div>
+              <div id="and-or-query-btn">
+                <button type="button"> AND </button>
+                <button type="button"> NOT </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <select id="value" name="value" multiple></select>
+          </div>
+        </form>
+        <div>
+          <div>
+            <label for="">Query</label>
+            <br>
+            <textarea name="query" id="query-textbox"></textarea>
+          </div>
+        </div>
+        <div>
+          <button id="selectButton">Select</button>
+          <button id="clearButton">Clear</button>
+        </div>
+      </ul>
+    </li>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
