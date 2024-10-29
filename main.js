@@ -2,6 +2,8 @@ import './style.css';
 import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import TileWMS from 'ol/source/TileWMS.js';
+
 
 // Initialize map
 const map = new Map({
@@ -139,7 +141,7 @@ document.querySelectorAll('#query-operator button').forEach(button => {
 document.getElementById('value').addEventListener('dblclick', (event) => {
   const selectedValue = event.target.value;
   if (selectedValue) {
-    document.getElementById('query-textbox').value += selectedValue + ' ';
+    document.getElementById('query-textbox').value += `'${selectedValue}'` + ' ';
   }
 });
 
@@ -147,22 +149,29 @@ document.getElementById('value').addEventListener('dblclick', (event) => {
 function executeQuery() {
   const layer = document.getElementById('file').value;
   const query = document.getElementById('query-textbox').value;
+  query
+  console.log(query);
+  
 
   // Construct WMS request with CQL_FILTER
-  const wmsSource = new ol.source.TileWMS({
+  const wmsSource = new TileWMS({
     url: 'http://localhost:8080/geoserver/agis/wms',
     params: {
       'LAYERS': layer,
-      'CQL_FILTER': query
-    }
+      'CQL_FILTER': query,
+      'TILED': true
+    },
+    serverType: 'geoserver',
+    crossOrigin: 'anonymous'
   });
 
-  const wmsLayer = new ol.layer.Tile({
+  const wmsLayer = new TileLayer({
     source: wmsSource
   });
 
   map.addLayer(wmsLayer);
 }
+
 
 // Event listener for select button
 document.getElementById('selectButton').addEventListener('click', () => {
